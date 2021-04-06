@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 import requests
 import math
 import os
+import aiohttp
 
 class Generator:
     def __init__(self):
@@ -14,8 +15,9 @@ class Generator:
         self.streaming  = os.path.join(os.path.dirname(__file__), 'assets', 'streaming.png')
         self.font1      = os.path.join(os.path.dirname(__file__), 'assets', 'font.ttf')
         self.font2      = os.path.join(os.path.dirname(__file__), 'assets', 'font2.ttf')
+        self.font3      = os.path.join(os.path.dirname(__file__), 'assets', 'Asuna.ttf')
 
-    def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online'):
+    def generate_profile(self, bg_image:str=None, profile_image:str=None, level:int=1, current_xp:int=0, user_xp:int=20, next_xp:int=100, user_position:int=1, user_name:str='Shahriyar#9770', user_status:str='online', ):
         if not bg_image:
             card = Image.open(self.default_bg).convert("RGBA")
         else:
@@ -37,7 +39,7 @@ class Generator:
                     y2 = nh + y1
 
                 card = card.crop((x1, y1, x2, y2)).resize((900, 238))
-
+          
         profile_bytes = BytesIO(requests.get(profile_image).content)
         profile = Image.open(profile_bytes)
         profile = profile.convert('RGBA').resize((180, 180))
@@ -69,7 +71,7 @@ class Generator:
         # Editing stuff here
 
         # ======== Fonts to use =============
-        font_normal = ImageFont.truetype(self.font1, 36)
+        font_normal = ImageFont.truetype(self.font3, 36)
         font_small = ImageFont.truetype(self.font1, 20)
         font_signa = ImageFont.truetype(self.font2, 25)
 
